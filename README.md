@@ -23,13 +23,13 @@ Before running the application, make sure you have the following:
 ## Installation
 - **1. Clone the Repository:**
   ```bash
-  git clone https://github.com/yourusername/YouTube-Downloader.git
+  git clone https://github.com/thilak-r/VPYouTubeDownloader.git
 
 - Replace yourusername with your GitHub username.
 
 - **2. Navigate to the Project Directory:**
   ```bash
-  cd YouTube-Downloader
+  cd VPYouTubeDownloader
 
 - **3. Install the Required Libraries:** Make sure you have the required Python libraries installed:
   ```bash
@@ -37,7 +37,7 @@ Before running the application, make sure you have the following:
 
 - **4. Running the Application:**  You can run the application with:
   ```bash
-  python YTDownloader.py
+  python VPYouTubeDownloader.py
 
 
 # Usage
