@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Downloader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        label, input, select, button {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .error {
+            color: red;
+            text-align: center;
+        }
+        .message {
+            color: green;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>YouTube Video Downloader</h1>
+
+        <label for="url">Enter YouTube URL:</label>
+        <input type="text" id="url" name="url" placeholder="Paste YouTube URL here" required>
+
+        <label for="format">Select Format:</label>
+        <select id="format" name="format">
+            <option value="mp4">MP4 (Video)</option>
+            <option value="mp3">MP3 (Audio)</option>
+            <option value="wav">WAV (Audio)</option>
+        </select>
+
+        <button id="downloadBtn" onclick="downloadVideo()">Download Now</button>
+
+        <div id="statusMessage"></div>
+    </div>
+
+    <script>
+        function downloadVideo() {
+            const url = document.getElementById("url").value;
+            const format = document.getElementById("format").value;
+
+            if (!url) {
+                document.getElementById("statusMessage").innerHTML = "<p class='error'>Please enter a valid YouTube URL.</p>";
+                return;
+            }
+
+            // Create the POST request
+            fetch("/download", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: `url=${encodeURIComponent(url)}&format=${encodeURIComponent(format)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    document.getElementById("statusMessage").innerHTML = `<p class='error'>${data.error}</p>`;
+                } else {
+                    document.getElementById("statusMessage").innerHTML = `<p class='message'>${data.message}</p>`;
+                }
+            })
+            .catch(error => {
+                document.getElementById("statusMessage").innerHTML = `<p class='error'>An error occurred: ${error}</p>`;
+            });
+        }
+    </script>
+
+</body>
+</html>
